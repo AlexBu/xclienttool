@@ -3,7 +3,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-class xclient_app(object):
+
+class XclientApp(object):
     name = ''
     addr = ''
     icon = ''
@@ -13,20 +14,24 @@ class xclient_app(object):
     description_detail = ''
     category = ''
     category_url = ''
+
     def __str__(self):
-        return '\n'.join(['app',
-        'name :{0}'.format(self.name),
-        'addr :{0}'.format(self.addr),
-        'icon :{0}'.format(self.icon),
-        'download times :{0}'.format(self.download_count),
-        'update date :{0}'.format(self.update_date),
-        'title :{0}'.format(self.description_title),
-        'description :{0}'.format(self.description_detail),
-        'category :{0}'.format(self.category)])
+        return '\n'.join([
+            'app',
+            'name :{0}'.format(self.name),
+            'addr :{0}'.format(self.addr),
+            'icon :{0}'.format(self.icon),
+            'download times :{0}'.format(self.download_count),
+            'update date :{0}'.format(self.update_date),
+            'title :{0}'.format(self.description_title),
+            'description :{0}'.format(self.description_detail),
+            'category :{0}'.format(self.category)]
+        )
+
 
 def store_app_item(item):
 
-    app = xclient_app()
+    app = XclientApp()
 
     main = item.find("div", class_="main")
     app.name = main.a.get('title')
@@ -48,6 +53,7 @@ def store_app_item(item):
     app.category_url = cates.a.get('href')
 
     return app
+
 
 def get_app_list():
     r = requests.get('http://xclient.info/s/')
