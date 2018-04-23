@@ -2,7 +2,7 @@
 # encoding: utf-8
 import requests
 from bs4 import BeautifulSoup
-from getapplist import xclient_site
+from getapplist import XclientSite
 
 def get_download_page(url, referer):
     # get this page will redirect to app intro page
@@ -16,7 +16,7 @@ def get_download_page(url, referer):
     print(disk_pass)
 
 def get_app_page(url):
-    id = xclient_site().get_id()
+    id = XclientSite().get_id()
     url += id
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html.parser")
