@@ -3,8 +3,10 @@
 import requests
 from bs4 import BeautifulSoup
 
-class xclient_site(object):
+
+class XclientSite(object):
     __id = ''
+
     def get_id(self):
         r = requests.get('http://xclient.info/s/', allow_redirects=False)
         self.__id = r.headers['location']
@@ -14,9 +16,10 @@ class xclient_site(object):
         url = 'http://xclient.info/s/' + self.get_id()
         r = requests.get(url)
         soup = BeautifulSoup(r.content, "html.parser")
-        return [self.store_app_item(li) for li in soup.findAll("li", class_="col-6 col-4-m col-3-l col-2-xl")]
+        return [XclientSite.store_app_item(li) for li in soup.findAll("li", class_="col-6 col-4-m col-3-l col-2-xl")]
 
-    def store_app_item(self, item):
+    @staticmethod
+    def store_app_item(item):
 
         app = XclientApp()
 
@@ -40,6 +43,7 @@ class xclient_site(object):
         app.category_url = cates.a.get('href')
 
         return app
+
 
 class XclientApp(object):
     name = ''
@@ -99,6 +103,6 @@ def get_app_list():
 
 
 if __name__ == '__main__':
-    list = get_app_list()
-    for app in list:
+    applist = get_app_list()
+    for app in applist:
         print(app)
