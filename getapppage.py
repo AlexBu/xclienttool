@@ -25,8 +25,8 @@ def get_app_page(url):
     links = soup.findAll('a', class_='btn-download')
     download_url_list = [link.get('href') for link in links if u'百度云盘' in link.text]
 
-    for one_url in download_url_list:
-        get_download_page(one_url, url)
+    if len(download_url_list) > 0:
+        get_download_page(download_url_list[0], url)
 
 
 if __name__ == '__main__':
