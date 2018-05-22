@@ -2,7 +2,8 @@
 # encoding: utf-8
 import requests
 from bs4 import BeautifulSoup
-from getapplist import xClientSite
+from getapplist import XclientSite
+
 
 def get_download_page(url, referer):
     # get this page will redirect to app intro page
@@ -15,8 +16,9 @@ def get_download_page(url, referer):
     disk_pass = link.get('data-clipboard-text')
     print(disk_pass)
 
+
 def get_app_page(url):
-    id = xClientSite().get_id()
+    id = XclientSite().get_id()
     url += id
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html.parser")
@@ -25,6 +27,7 @@ def get_app_page(url):
 
     for one_url in download_url_list:
         get_download_page(one_url, url)
+
 
 if __name__ == '__main__':
     get_app_page('http://xclient.info/s/typinator.html')
